@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block title %}
+Warranty Claims | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <a
+            href="{% url 'customer_dashboard' %}"
+            class="side-brand"
+        >
+
+            <span class="side-logo">
+                R
+            </span>
+
+            <div>
+                <strong>RepairTrack</strong>
+                <small>Customer Portal</small>
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'customer_dashboard' %}">
+                🏠  Home
+            </a>
+
+            <a href="{% url 'devices' %}">
+                💻 My Devices
+            </a>
+
+            <a href="{% url 'tickets' %}">
+                🎫 Service Tickets
+            </a>
+
+            <a href="{% url 'repairs' %}">
+                🔧  Repairs
+            </a>
+
+            <a
+                href="{% url 'warranty' %}"
+                class="active"
+            >
+                🛡️ Warranty Claims
+            </a>
+
+            <a href="{% url 'notifications' %}">
+                🔔 Notifications
+            </a>
+
+            <a href="{% url 'profile' %}">
+                👤 My Profile
+            </a>
+
+        </nav>
+
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    Warranty Claims
+                </h1>
+
+                <p>
+                    Submit and track warranty requests.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <div class="two-col">
+
+
+            <!-- SUBMIT -->
+
+            <section class="content-card">
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h2>
+                            Submit Warranty Claim
+                        </h2>
+
+                        <p>
+                            Select your device and explain the problem.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-card-content">
+
+                    {% if messages %}
+
+                        {% for message in messages %}
+
+                            <div class="alert">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+
+                    {% if devices %}
+
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+
+                            <label>
+
+                                Device
+
+                                <select
+                                    name="device"
+                                    required
+                                >
+
+                                    <option value="">
+                                        -- Select Device --
+                                    </option>
+
+                                    {% for device in devices %}
+
+                                        <option value="{{ device.id }}">
+                                            {{ device }}
+                                        </option>
+
+                                    {% endfor %}
+
+                                </select>
+
+                            </label>
+
+
+                            <label>
+
+                                Problem Description
+
+                                <textarea
+                                    name="description"
+                                    rows="7"
+                                    placeholder="Describe the warranty issue..."
+                                    required
+                                ></textarea>
+
+                            </label>
+
+
+                            <button
+                                type="submit"
+                                class="btn"
+                            >
+                                Submit Warranty Claim
+                            </button>
+
+                        </form>
+
+                    {% else %}
+
+                        <div class="alert">
+                            Please register a device first.
+                        </div>
+
+                        <a
+                            href="{% url 'register_device' %}"
+                            class="btn"
+                        >
+                            + Register Device
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+            </section>
+
+
+            <!-- CLAIM HISTORY -->
+
+            <section class="content-card">
+
+                <div class="content-card-header">
+
+                    <div>
+
+                        <h2>
+                            My Claims
+                        </h2>
+
+                        <p>
+                            Warranty claim history.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="list">
+
+                    {% for claim in claims %}
+
+                        <div class="list-item">
+
+                            <b>
+                                Claim #WC-{{ claim.id|stringformat:"04d" }}
+                            </b>
+
+                            {% if claim.status == "submitted" %}
+
+                                <span class="badge blue">
+                                    Submitted
+                                </span>
+
+                            {% elif claim.status == "approved" %}
+
+                                <span class="badge green">
+                                    Approved
+                                </span>
+
+                            {% elif claim.status == "rejected" %}
+
+                                <span class="badge high">
+                                    Rejected
+                                </span>
+
+                            {% endif %}
+
+
+                            <small>
+                                {{ claim.device }}
+                            </small>
+
+
+                            <small>
+                                {{ claim.created_at|date:"d M Y H:i" }}
+                            </small>
+
+
+                            <p>
+                                {{ claim.description }}
+                            </p>
+
+
+                            {% if claim.admin_note %}
+
+                                <p>
+
+                                    <strong>
+                                        Admin Note:
+                                    </strong>
+
+                                    {{ claim.admin_note }}
+
+                                </p>
+
+                            {% endif %}
+
+                        </div>
+
+                    {% empty %}
+
+                        <p class="pad">
+                            No warranty claims yet.
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}

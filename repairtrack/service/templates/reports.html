@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}
+Reports | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <a href="{% url 'admin_dashboard' %}" class="side-brand">
+
+            <span class="side-logo">
+                R
+            </span>
+
+            <div>
+                <strong>
+                    RepairTrack
+                </strong>
+
+                <small>
+                    Admin Panel
+                </small>
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'admin_dashboard' %}">
+                📊 Dashboard
+            </a>
+
+            <a href="{% url 'admin_users' %}">
+                👥 Users
+            </a>
+
+            <a href="{% url 'add_technician' %}">
+                🧑‍🔧 Add Technician
+            </a>
+
+            <a href="{% url 'tickets' %}">
+                🎫 Tickets
+            </a>
+
+            <a href="{% url 'devices' %}">
+                💻 Devices
+            </a>
+
+            <a href="{% url 'repairs' %}">
+                🔧 Repairs
+            </a>
+
+            <a href="{% url 'inventory' %}">
+                📦 Inventory
+            </a>
+
+            <a href="{% url 'admin_warranty_claims' %}">
+                🛡️ Warranty Claims
+            </a>
+
+            <a
+                href="{% url 'reports' %}"
+                class="active"
+            >
+                📈 Reports
+            </a>
+
+            <a href="{% url 'audit_logs' %}">
+                  Audit Logs
+            </a>
+
+            <a href="{% url 'profile' %}">
+                👤 Profile
+            </a>
+
+        </nav>
+
+
+        <a href="{% url 'logout' %}" class="logout">
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    Reports & Analytics
+                </h1>
+
+                <p>
+                    Repair service statistics.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <section class="content-card">
+
+            <div class="content-card-header">
+
+                <h2>
+                    Repair Status
+                </h2>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for row in status_data %}
+
+                        <tr>
+
+                            <td>
+                                {{ row.status|title }}
+                            </td>
+
+                            <td>
+                                {{ row.total }}
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="2"
+                                class="empty-row"
+                            >
+                                No report data available.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

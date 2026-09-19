@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Review Warranty Claim | RepairTrack{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/warranty-review.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="warranty-review-page">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="side-brand">
+            <div class="side-logo">RT</div>
+            <div>
+                <strong>RepairTrack</strong>
+                <span>Service Portal</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'admin_dashboard' %}"
+               class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}">
+                 📊 Dashboard
+            </a>
+
+            <a href="{% url 'admin_users' %}"
+               class="{% if request.resolver_match.url_name == 'admin_users' %}active{% endif %}">
+                👥 Users
+            </a>
+
+            <a href="{% url 'add_technician' %}"
+               class="{% if request.resolver_match.url_name == 'add_technician' %}active{% endif %}">
+                🧑‍🔧 Add Technician
+            </a>
+
+            <a href="{% url 'tickets' %}"
+               class="{% if request.resolver_match.url_name == 'tickets' %}active{% endif %}">
+                 🎫 Service Tickets
+            </a>
+
+            <a href="{% url 'devices' %}"
+               class="{% if request.resolver_match.url_name == 'devices' %}active{% endif %}">
+                💻 Devices
+            </a>
+
+            <a href="{% url 'repairs' %}"
+               class="{% if request.resolver_match.url_name == 'repairs' %}active{% endif %}">
+                🔧 Repairs
+            </a>
+
+            <a href="{% url 'inventory' %}"
+               class="{% if request.resolver_match.url_name == 'inventory' %}active{% endif %}">
+                📦 Inventory
+            </a>
+
+            <a href="{% url 'admin_warranty_claims' %}"
+               class="{% if request.resolver_match.url_name == 'admin_warranty_claims' or request.resolver_match.url_name == 'review_warranty_claim' %}active{% endif %}">
+                🛡️ Warranty Claims
+            </a>
+
+            <a href="{% url 'reports' %}"
+               class="{% if request.resolver_match.url_name == 'reports' %}active{% endif %}">
+                📈 Reports
+            </a>
+
+            <a href="{% url 'notifications' %}"
+               class="{% if request.resolver_match.url_name == 'notifications' %}active{% endif %}">
+                🔔 Notifications
+            </a>
+
+            <a href="{% url 'audit_logs' %}"
+               class="{% if request.resolver_match.url_name == 'audit_logs' %}active{% endif %}">
+                Audit Logs
+            </a>
+
+            <a href="{% url 'profile' %}"
+               class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                 👤 Profile
+            </a>
+
+            <a href="{% url 'logout' %}" class="logout">
+                ↪ Logout
+            </a>
+
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="warranty-review-main">
+
+        <div class="warranty-review-header">
+            <div>
+                <h1>Review Warranty Claim</h1>
+                <p>Review customer warranty claim details and update its status.</p>
+            </div>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="warranty-alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="warranty-review-card">
+
+            <!-- CUSTOMER & DEVICE -->
+            <div class="warranty-section">
+
+                <div class="warranty-section-title">
+                    Customer & Device Information
+                </div>
+
+                <div class="warranty-info-grid">
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Customer</span>
+                        <div class="warranty-info-value">
+                            {{ claim.customer.get_full_name|default:claim.customer.username }}
+                        </div>
+                    </div>
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Username</span>
+                        <div class="warranty-info-value">
+                            {{ claim.customer.username }}
+                        </div>
+                    </div>
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Device</span>
+                        <div class="warranty-info-value">
+                            {{ claim.device.name }}
+                        </div>
+                    </div>
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Brand</span>
+                        <div class="warranty-info-value">
+                            {{ claim.device.brand|default:"-" }}
+                        </div>
+                    </div>
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Model Number</span>
+                        <div class="warranty-info-value">
+                            {{ claim.device.model_number|default:"-" }}
+                        </div>
+                    </div>
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Serial Number</span>
+                        <div class="warranty-info-value">
+                            {{ claim.device.serial_number|default:"-" }}
+                        </div>
+                    </div>
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Submitted On</span>
+                        <div class="warranty-info-value">
+                            {{ claim.created_at|date:"d M Y, h:i A" }}
+                        </div>
+                    </div>
+
+                    <div class="warranty-info-box">
+                        <span class="warranty-info-label">Current Status</span>
+                        <div>
+                            <span class="warranty-status">
+                                {{ claim.get_status_display }}
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CLAIM DESCRIPTION -->
+            <div class="warranty-section">
+
+                <div class="warranty-section-title">
+                    Claim Description
+                </div>
+
+                <div class="warranty-description">
+                    {{ claim.description|linebreaksbr }}
+                </div>
+
+            </div>
+
+            <!-- REVIEW FORM -->
+            <div class="warranty-section">
+
+                <div class="warranty-section-title">
+                    Admin Review
+                </div>
+
+                <form method="post" class="warranty-form">
+                    {% csrf_token %}
+
+                    <div class="warranty-form-group">
+
+                        <label for="admin_note">
+                            Admin Note
+                        </label>
+
+                        <textarea
+                            id="admin_note"
+                            name="admin_note"
+                            placeholder="Enter your review note..."
+                        >{{ claim.admin_note }}</textarea>
+
+                    </div>
+
+                    <div class="warranty-actions">
+
+                        <button
+                            type="submit"
+                            name="action"
+                            value="approve"
+                            class="warranty-btn warranty-btn-approve"
+                        >
+                            Approve Claim
+                        </button>
+
+                        <button
+                            type="submit"
+                            name="action"
+                            value="reject"
+                            class="warranty-btn warranty-btn-reject"
+                        >
+                            Reject Claim
+                        </button>
+
+                        <a
+                            href="{% url 'admin_warranty_claims' %}"
+                            class="warranty-btn warranty-btn-back"
+                        >
+                            Back to Claims
+                        </a>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}
+Warranty Claims | Admin
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <a href="{% url 'admin_dashboard' %}" class="side-brand">
+
+            <span class="side-logo">R</span>
+
+            <div>
+                <strong>RepairTrack</strong>
+                <small>Admin Panel</small>
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'admin_dashboard' %}">
+                📊 Dashboard
+            </a>
+
+            <a href="{% url 'admin_users' %}">
+                👥 Users
+            </a>
+
+            <a href="{% url 'add_technician' %}">
+                🧑‍🔧 Add Technician
+            </a>
+
+            <a href="{% url 'tickets' %}">
+                🎫 Tickets
+            </a>
+
+            <a href="{% url 'devices' %}">
+                💻 Devices
+            </a>
+
+            <a href="{% url 'repairs' %}">
+                🔧 Repairs
+            </a>
+
+            <a href="{% url 'inventory' %}">
+                📦 Inventory
+            </a>
+
+            <a
+                href="{% url 'admin_warranty_claims' %}"
+                class="active"
+            >
+                🛡️ Warranty Claims
+            </a>
+
+            <a href="{% url 'reports' %}">
+                📈 Reports
+            </a>
+
+            <a href="{% url 'audit_logs' %}">
+                🛡 Audit Logs
+            </a>
+
+            <a href="{% url 'profile' %}">
+                👤 Profile
+            </a>
+
+        </nav>
+
+
+        <a href="{% url 'logout' %}" class="logout">
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    Warranty Claims
+                </h1>
+
+                <p>
+                    Review customer warranty requests.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <section class="content-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Claim</th>
+                            <th>Customer</th>
+                            <th>Device</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for claim in claims %}
+
+                        <tr>
+
+                            <td>
+                                #WC-{{ claim.id|stringformat:"04d" }}
+                            </td>
+
+                            <td>
+                                {{ claim.customer.username }}
+                            </td>
+
+                            <td>
+                                {{ claim.device }}
+                            </td>
+
+                            <td>
+                                {{ claim.description|truncatechars:45 }}
+                            </td>
+
+                            <td>
+                                {{ claim.created_at|date:"d M Y" }}
+                            </td>
+
+                            <td>
+                                <span class="badge blue">
+                                    Submitted
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="{% url 'review_warranty_claim' claim.id %}"
+                                    class="btn btn-small"
+                                >
+                                    Review
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="7"
+                                class="empty-row"
+                            >
+                                No pending warranty claims.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

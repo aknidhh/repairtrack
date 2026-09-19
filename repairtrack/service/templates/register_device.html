@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}
+Register Device | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="simple">
+
+    <section class="card formcard">
+
+        <div class="cardhead">
+
+            <div>
+
+                <h1>
+                    Register Device
+                </h1>
+
+                <p>
+                    Add your electronic device.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <label>
+
+                Device Name
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Laptop, Phone, TV..."
+                    required
+                >
+
+            </label>
+
+
+            <label>
+
+                Brand
+
+                <input
+                    type="text"
+                    name="brand"
+                    placeholder="Example: Lenovo"
+                >
+
+            </label>
+
+
+            <label>
+
+                Model Number
+
+                <input
+                    type="text"
+                    name="model_number"
+                    placeholder="Model number"
+                >
+
+            </label>
+
+
+            <label>
+
+                Serial Number
+
+                <input
+                    type="text"
+                    name="serial_number"
+                    placeholder="Serial number"
+                >
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="btn"
+            >
+                Register Device
+            </button>
+
+        </form>
+
+    </section>
+
+</div>
+
+{% endblock %}

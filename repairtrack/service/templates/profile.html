@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    {% if request.user.is_staff %}
+
+        <aside class="sidebar">
+
+            <a href="{% url 'admin_dashboard' %}" class="side-brand">
+                <span class="side-logo">R</span>
+                <div>
+                    <strong>RepairTrack</strong>
+                    <small>Admin Panel</small>
+                </div>
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+                <a href="{% url 'admin_users' %}">👥 Users</a>
+                <a href="{% url 'add_technician' %}">🧑‍🔧 Add Technician</a>
+                <a href="{% url 'tickets' %}">🎫 Service Tickets</a>
+                <a href="{% url 'devices' %}">💻 Devices</a>
+                <a href="{% url 'repairs' %}">🔧 Repairs</a>
+                <a href="{% url 'inventory' %}">📦 Inventory</a>
+                <a href="{% url 'admin_warranty_claims' %}">🛡️ Warranty</a>
+                <a href="{% url 'reports' %}">📈 Reports</a>
+                <a href="{% url 'audit_logs' %}"> Audit Logs</a>
+
+                <a
+                    href="{% url 'profile' %}"
+                    class="active"
+                >
+                    👤 Profile
+                </a>
+
+            </nav>
+
+            <a href="{% url 'logout' %}" class="logout">
+                ↪ Logout
+            </a>
+
+        </aside>
+
+    {% elif request.user.profile.role == "technician" %}
+
+        <aside class="sidebar">
+
+            <a href="{% url 'technician_dashboard' %}" class="side-brand">
+                <span class="side-logo">R</span>
+                <div>
+                    <strong>RepairTrack</strong>
+                    <small>Technician Portal</small>
+                </div>
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'technician_dashboard' %}">
+                    🏠 Dashboard
+                </a>
+
+                <a href="{% url 'tickets' %}">
+                    🎫 Assigned Tickets
+                </a>
+
+                <a href="{% url 'repairs' %}">
+                    🔧 Repairs
+                </a>
+
+                <a href="{% url 'inventory' %}">
+                    📦 Inventory
+                </a>
+
+                <a href="{% url 'notifications' %}">
+                    🔔 Notifications
+                </a>
+
+                <a
+                    href="{% url 'profile' %}"
+                    class="active"
+                >
+                    👤 Profile
+                </a>
+
+            </nav>
+
+            <a href="{% url 'logout' %}" class="logout">
+                ↪ Logout
+            </a>
+
+        </aside>
+
+    {% else %}
+
+        <aside class="sidebar">
+
+            <a href="{% url 'customer_dashboard' %}" class="side-brand">
+                <span class="side-logo">R</span>
+                <div>
+                    <strong>RepairTrack</strong>
+                    <small>Customer Portal</small>
+                </div>
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'customer_dashboard' %}">
+                    🏠  Home
+                </a>
+
+                <a href="{% url 'devices' %}">
+                    💻 My Devices
+                </a>
+
+                <a href="{% url 'tickets' %}">
+                    🎫 Service Tickets
+                </a>
+
+                <a href="{% url 'repairs' %}">
+                    🔧 Repairs
+                </a>
+
+                <a href="{% url 'warranty' %}">
+                    🛡️  Warranty
+                </a>
+
+                <a href="{% url 'notifications' %}">
+                    🔔  Notifications
+                </a>
+
+                <a
+                    href="{% url 'profile' %}"
+                    class="active"
+                >
+                    👤 My Profile
+                </a>
+
+            </nav>
+
+            <a href="{% url 'logout' %}" class="logout">
+                ↪ Logout
+            </a>
+
+        </aside>
+
+    {% endif %}
+
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    My Profile
+                </h1>
+
+                <p>
+                    Update your account information.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <section class="content-card">
+
+            <div class="form-card-content">
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="alert">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+                <form
+                    method="POST"
+                    class="form-grid"
+                >
+
+                    {% csrf_token %}
+
+
+                    <label>
+
+                        First Name
+
+                        <input
+                            type="text"
+                            name="first_name"
+                            value="{{ request.user.first_name }}"
+                        >
+
+                    </label>
+
+
+                    <label>
+
+                        Last Name
+
+                        <input
+                            type="text"
+                            name="last_name"
+                            value="{{ request.user.last_name }}"
+                        >
+
+                    </label>
+
+
+                    <label>
+
+                        Email
+
+                        <input
+                            type="email"
+                            name="email"
+                            value="{{ request.user.email }}"
+                        >
+
+                    </label>
+
+
+                    <label>
+
+                        Phone
+
+                        <input
+                            type="text"
+                            name="phone"
+                            value="{{ profile.phone }}"
+                        >
+
+                    </label>
+
+
+                    <div class="form-full">
+
+                        <button
+                            type="submit"
+                            class="btn"
+                        >
+                            Save Profile
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,378 @@
+{% extends "base.html" %}
+
+{% block title %}
+Service Tickets | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        {% if request.user.is_staff %}
+
+            <a href="{% url 'admin_dashboard' %}" class="side-brand">
+                <span class="side-logo">R</span>
+                <div>
+                    <strong>RepairTrack</strong>
+                    <small>Admin Panel</small>
+                </div>
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'admin_dashboard' %}">
+                    📊 Dashboard
+                </a>
+
+                <a href="{% url 'admin_users' %}">
+                    👥 Users
+                </a>
+
+                <a href="{% url 'add_technician' %}">
+                    🧑‍🔧 Add Technician
+                </a>
+
+                <a
+                    href="{% url 'tickets' %}"
+                    class="active"
+                >
+                    🎫 Service Tickets
+                </a>
+
+                <a href="{% url 'devices' %}">
+                    💻 Devices
+                </a>
+
+                <a href="{% url 'repairs' %}">
+                    🔧 Repairs
+                </a>
+
+                <a href="{% url 'inventory' %}">
+                    📦 Inventory
+                </a>
+
+                <a href="{% url 'admin_warranty_claims' %}">
+                    🛡️ Warranty Claims
+                </a>
+
+                <a href="{% url 'reports' %}">
+                    📈 Reports
+                </a>
+
+                <a href="{% url 'audit_logs' %}">
+                      Audit Logs
+                </a>
+
+                <a href="{% url 'profile' %}">
+                    👤 Profile
+                </a>
+
+            </nav>
+
+        {% elif request.user.profile.role == "technician" %}
+
+            <a href="{% url 'technician_dashboard' %}" class="side-brand">
+                <span class="side-logo">R</span>
+                <div>
+                    <strong>RepairTrack</strong>
+                    <small>Technician Portal</small>
+                </div>
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'technician_dashboard' %}">
+                    🏠 Dashboard
+                </a>
+
+                <a
+                    href="{% url 'tickets' %}"
+                    class="active"
+                >
+                    🎫 Assigned Tickets
+                </a>
+
+                <a href="{% url 'repairs' %}">
+                    🔧  Repairs
+                </a>
+
+                <a href="{% url 'inventory' %}">
+                    📦 Inventory
+                </a>
+
+                <a href="{% url 'notifications' %}">
+                    🔔 Notifications
+                </a>
+
+                <a href="{% url 'profile' %}">
+                    👤 Profile
+                </a>
+
+            </nav>
+
+        {% else %}
+
+            <a href="{% url 'customer_dashboard' %}" class="side-brand">
+                <span class="side-logo">S</span>
+                <div>
+                    <strong>Service Portal</strong>
+                    <small>Customer Portal</small>
+                </div>
+            </a>
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'customer_dashboard' %}">
+                    🏠 Home
+                </a>
+
+                <a href="{% url 'devices' %}">
+                    💻 My Devices
+                </a>
+
+                <a
+                    href="{% url 'tickets' %}"
+                    class="active"
+                >
+                    🎫 Service Tickets
+                </a>
+
+                <a href="{% url 'repairs' %}">
+                    🔧  Repairs
+                </a>
+
+                <a href="{% url 'warranty' %}">
+                    🛡️ Warranty 
+                </a>
+
+                <a href="{% url 'notifications' %}">
+                    🔔 Notifications
+                </a>
+
+                <a href="{% url 'profile' %}">
+                    👤  My Profile
+                </a>
+
+            </nav>
+
+        {% endif %}
+
+
+        <a href="{% url 'logout' %}" class="logout">
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    Service Tickets
+                </h1>
+
+                <p>
+                    Manage repair service requests.
+                </p>
+
+            </div>
+
+
+            {% if request.user.profile.role == "customer" %}
+
+                <a
+                    href="{% url 'create_ticket' %}"
+                    class="btn"
+                >
+                    + New Ticket
+                </a>
+
+            {% endif %}
+
+        </header>
+
+
+        <section class="content-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Ticket</th>
+                            <th>Customer</th>
+                            <th>Device</th>
+                            <th>Priority</th>
+                            <th>Technician</th>
+                            <th>Status</th>
+
+                            {% if request.user.is_staff %}
+                                <th>Assign</th>
+                            {% endif %}
+
+                            {% if request.user.is_staff or request.user.profile.role == "technician" %}
+                                <th>Update</th>
+                            {% endif %}
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for t in tickets %}
+
+                        <tr>
+
+                            <td>
+                                #RT-{{ t.id|stringformat:"04d" }}
+                            </td>
+
+                            <td>
+                                {{ t.customer.username }}
+                            </td>
+
+                            <td>
+                                {{ t.device }}
+                            </td>
+
+                            <td>
+                                {{ t.get_priority_display }}
+                            </td>
+
+                            <td>
+
+                                {% if t.technician %}
+                                    {{ t.technician.username }}
+                                {% else %}
+                                    Unassigned
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ t.get_status_display }}
+                            </td>
+
+
+                            {% if request.user.is_staff %}
+
+                            <td>
+
+                                <a
+                                    href="{% url 'assign_technician' t.id %}"
+                                    class="btn btn-small"
+                                >
+                                    {% if t.technician %}
+                                        Change
+                                    {% else %}
+                                        Assign
+                                    {% endif %}
+                                </a>
+
+                            </td>
+
+                            {% endif %}
+
+
+                            {% if request.user.is_staff or request.user.profile.role == "technician" %}
+
+                            <td>
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'update_ticket_status' t.id %}"
+                                    class="inline"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <select name="status">
+
+                                        <option value="submitted"
+                                            {% if t.status == "submitted" %}selected{% endif %}>
+                                            Submitted
+                                        </option>
+
+                                        <option value="diagnosing"
+                                            {% if t.status == "diagnosing" %}selected{% endif %}>
+                                            Diagnosing
+                                        </option>
+
+                                        <option value="repairing"
+                                            {% if t.status == "repairing" %}selected{% endif %}>
+                                            Repairing
+                                        </option>
+
+                                        <option value="ready"
+                                            {% if t.status == "ready" %}selected{% endif %}>
+                                            Ready
+                                        </option>
+
+                                        <option value="completed"
+                                            {% if t.status == "completed" %}selected{% endif %}>
+                                            Completed
+                                        </option>
+
+                                        <option value="cancelled"
+                                            {% if t.status == "cancelled" %}selected{% endif %}>
+                                            Cancelled
+                                        </option>
+
+                                    </select>
+
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-small"
+                                    >
+                                        Save
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                            {% endif %}
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="empty-row"
+                            >
+                                No service tickets found.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

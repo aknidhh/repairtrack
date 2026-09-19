@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}
+Audit Logs | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <a
+            href="{% url 'admin_dashboard' %}"
+            class="side-brand"
+        >
+
+            <span class="side-logo">
+                R
+            </span>
+
+            <div>
+                <strong>RepairTrack</strong>
+                <small>Admin Panel</small>
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a href="{% url 'admin_dashboard' %}">
+                📊 Dashboard
+            </a>
+
+            <a href="{% url 'admin_users' %}">
+                👥 Users
+            </a>
+
+            <a href="{% url 'add_technician' %}">
+                🧑‍🔧 Add Technician
+            </a>
+
+            <a href="{% url 'tickets' %}">
+                🎫 Tickets
+            </a>
+
+            <a href="{% url 'devices' %}">
+                💻 Devices
+            </a>
+
+            <a href="{% url 'repairs' %}">
+                🔧 Repairs
+            </a>
+
+            <a href="{% url 'inventory' %}">
+                📦 Inventory
+            </a>
+
+            <a href="{% url 'admin_warranty_claims' %}">
+                🛡️ Warranty
+            </a>
+
+            <a href="{% url 'reports' %}">
+                📈 Reports
+            </a>
+
+            <a
+                href="{% url 'audit_logs' %}"
+                class="active"
+            >
+                🛡 Audit Logs
+            </a>
+
+            <a href="{% url 'profile' %}">
+                👤 Profile
+            </a>
+
+        </nav>
+
+
+        <a href="{% url 'logout' %}" class="logout">
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <main class="dashboard-main">
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    Audit Logs
+                </h1>
+
+                <p>
+                    Track important system activity.
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <section class="content-card">
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                User
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for log in logs %}
+
+                        <tr>
+
+                            <td>
+                                {{ log.created_at|date:"d M Y H:i" }}
+                            </td>
+
+                            <td>
+
+                                {% if log.actor %}
+                                    {{ log.actor.username }}
+                                {% else %}
+                                    System
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ log.action }}
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="3"
+                                class="empty-row"
+                            >
+                                No audit logs found.
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

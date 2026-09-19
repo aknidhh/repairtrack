@@ -1,0 +1,638 @@
+{% extends "base.html" %}
+
+{% block title %}
+Customer Dashboard | RepairTrack
+{% endblock %}
+
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- LOGO -->
+
+        <a
+            href="{% url 'customer_dashboard' %}"
+            class="side-brand"
+        >
+
+            <span class="side-logo">
+                S
+            </span>
+
+            <div>
+
+                <strong>
+                    Service Portal
+                </strong>
+
+                <small>
+                    Customer Portal
+                </small>
+
+            </div>
+
+        </a>
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="sidebar-nav">
+
+            <!-- DASHBOARD -->
+
+            <a
+                href="{% url 'customer_dashboard' %}"
+                class="{% if request.resolver_match.url_name == 'customer_dashboard' %}active{% endif %}"
+            >
+                <span class="nav-icon">🏠</span>
+                <span>Home</span>
+            </a>
+
+
+            <!-- DEVICES -->
+
+            <a
+                href="{% url 'devices' %}"
+                class="{% if request.resolver_match.url_name == 'devices' or request.resolver_match.url_name == 'register_device' %}active{% endif %}"
+            >
+                <span class="nav-icon">💻</span>
+                <span>My Devices</span>
+            </a>
+
+
+            <!-- TICKETS -->
+
+            <a
+                href="{% url 'tickets' %}"
+                class="{% if request.resolver_match.url_name == 'tickets' or request.resolver_match.url_name == 'create_ticket' %}active{% endif %}"
+            >
+                <span class="nav-icon">🎫</span>
+                <span>Service Tickets</span>
+            </a>
+
+
+            <!-- REPAIRS -->
+
+            <a
+                href="{% url 'repairs' %}"
+                class="{% if request.resolver_match.url_name == 'repairs' %}active{% endif %}"
+            >
+                <span class="nav-icon">🔧</span>
+                <span>My Repairs</span>
+            </a>
+
+
+            <!-- WARRANTY -->
+
+            <a
+                href="{% url 'warranty' %}"
+                class="{% if request.resolver_match.url_name == 'warranty' %}active{% endif %}"
+            >
+                <span class="nav-icon">🛡️</span>
+                <span>Warranty Claims</span>
+            </a>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <a
+                href="{% url 'notifications' %}"
+                class="{% if request.resolver_match.url_name == 'notifications' %}active{% endif %}"
+            >
+                <span class="nav-icon">🔔</span>
+                <span>Notifications</span>
+            </a>
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="{% url 'profile' %}"
+                class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}"
+            >
+                <span class="nav-icon">👤</span>
+                <span>My Profile</span>
+            </a>
+
+        </nav>
+
+
+    </aside>
+>
+
+    <main class="dashboard-main">
+
+<header class="dashboard-topbar">
+
+    <div class="topbar-title">
+
+        <h1>
+            Customer Dashboard
+        </h1>
+
+        <p>
+            Welcome back,
+            {{ request.user.get_full_name|default:request.user.username }}
+        </p>
+
+    </div>
+
+
+    <div class="user-menu">
+
+        <button
+            type="button"
+            class="user-menu-button"
+            onclick="toggleUserMenu()"
+        >
+
+            <div class="avatar">
+                {{ request.user.username|first|upper }}
+            </div>
+
+            <div class="user-name">
+
+                <strong>
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </strong>
+
+                <small>
+                    Customer
+                </small>
+
+            </div>
+
+            <span class="arrow">
+                ▾
+            </span>
+
+        </button>
+
+
+        <div
+            id="userMenu"
+            class="user-dropdown"
+        >
+
+            <a href="{% url 'profile' %}">
+                👤 My Profile
+            </a>
+
+            <a href="{% url 'notifications' %}">
+                🔔 Notifications
+            </a>
+
+            <div class="dropdown-divider"></div>
+
+            <a
+                href="{% url 'logout' %}"
+                class="logout-dropdown"
+            >
+                ↪ Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+        <section class="stats-grid">
+
+
+            <!-- DEVICES -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    💻
+                </div>
+
+                <div>
+
+                    <span>
+                        My Devices
+                    </span>
+
+                    <strong>
+                        {{ device_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- OPEN TICKETS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎫
+                </div>
+
+                <div>
+
+                    <span>
+                        Open Tickets
+                    </span>
+
+                    <strong>
+                        {{ open_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- ACTIVE REPAIRS -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔧
+                </div>
+
+                <div>
+
+                    <span>
+                        Active Repairs
+                    </span>
+
+                    <strong>
+                        {{ active_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- COMPLETED -->
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Completed
+                    </span>
+
+                    <strong>
+                        {{ completed_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="customer-callout">
+
+
+            <div>
+
+                <span class="callout-label">
+                    NEED A REPAIR?
+                </span>
+
+                <h2>
+                    Submit a new service request
+                </h2>
+
+                <p>
+                    Tell us about your device problem and
+                    our technicians will take care of it.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'create_ticket' %}"
+                class="btn black-btn"
+            >
+                +Service Request
+            </a>
+
+        </section>
+
+        <section class="content-card">
+
+
+            <div class="content-card-header">
+
+                <div>
+
+                    <h2>
+                        Recent Service Tickets
+                    </h2>
+
+                    <p>
+                        Your latest repair requests
+                    </p>
+
+                </div>
+
+
+                <a href="{% url 'tickets' %}">
+                    View All
+                </a>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Ticket
+                            </th>
+
+                            <th>
+                                Device
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Technician
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for ticket in recent_tickets %}
+
+                        <tr>
+
+                            <td>
+
+                                #RT-
+                                {{ ticket.id|stringformat:"04d" }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ ticket.device }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ ticket.created_at|date:"d M Y" }}
+
+                            </td>
+
+
+                            <td>
+
+                                {% if ticket.technician %}
+
+                                    {% if ticket.technician.get_full_name %}
+
+                                        {{ ticket.technician.get_full_name }}
+
+                                    {% else %}
+
+                                        {{ ticket.technician.username }}
+
+                                    {% endif %}
+
+                                {% else %}
+
+                                    Unassigned
+
+                                {% endif %}
+
+                            </td>
+
+
+                            <td>
+
+                                {% if ticket.status == "submitted" %}
+
+                                    <span class="status-badge blue">
+                                        Submitted
+                                    </span>
+
+                                {% elif ticket.status == "diagnosing" %}
+
+                                    <span class="status-badge yellow">
+                                        Diagnosing
+                                    </span>
+
+                                {% elif ticket.status == "repairing" %}
+
+                                    <span class="status-badge blue">
+                                        Repairing
+                                    </span>
+
+                                {% elif ticket.status == "ready" %}
+
+                                    <span class="status-badge green">
+                                        Ready
+                                    </span>
+
+                                {% elif ticket.status == "completed" %}
+
+                                    <span class="status-badge green">
+                                        Completed
+                                    </span>
+
+                                {% elif ticket.status == "cancelled" %}
+
+                                    <span class="status-badge red">
+                                        Cancelled
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="empty-row"
+                            >
+
+                                You have no service tickets yet.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+        <section class="content-card">
+
+
+            <div class="content-card-header">
+
+                <div>
+
+                    <h2>
+                        
+                    </h2>
+                        Manage your service account
+                    <p>
+                        
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions-grid">
+
+
+                <a
+                    href="{% url 'register_device' %}"
+                    class="quick-action-card"
+                >
+
+                    <div class="quick-action-icon">
+                        💻
+                    </div>
+
+                    <strong>
+                        Register Device
+                    </strong>
+
+                    <small>
+                        Add a new device
+                    </small>
+
+                </a>
+
+
+                <a
+                    href="{% url 'create_ticket' %}"
+                    class="quick-action-card"
+                >
+
+                    <div class="quick-action-icon">
+                        🎫
+                    </div>
+
+                    <strong>
+                        New Service Ticket
+                    </strong>
+
+                    <small>
+                        Request a repair
+                    </small>
+
+                </a>
+
+
+                <a
+                    href="{% url 'warranty' %}"
+                    class="quick-action-card"
+                >
+
+                    <div class="quick-action-icon">
+                        🛡️
+                    </div>
+
+                    <strong>
+                        Warranty Claim
+                    </strong>
+
+                    <small>
+                        Submit a warranty request
+                    </small>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+<script>
+
+function toggleUserMenu() {
+
+    const menu = document.getElementById("userMenu");
+
+    if (menu) {
+        menu.classList.toggle("show");
+    }
+
+}
+
+document.addEventListener("click", function(event) {
+
+    const menu =
+        document.getElementById("userMenu");
+
+    const button =
+        document.querySelector(".user-menu-button");
+
+    if (!menu || !button) {
+        return;
+    }
+
+    if (
+        !menu.contains(event.target) &&
+        !button.contains(event.target)
+    ) {
+        menu.classList.remove("show");
+    }
+
+});
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,341 @@
+/* ============================================================
+   REPAIRTRACK LOGIN / REGISTER
+============================================================ */
+
+.auth-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6f9ff,
+            #eef4ff
+        );
+}
+
+
+/* ============================================================
+   AUTH CARD
+============================================================ */
+
+.auth-card {
+    width: 100%;
+    max-width: 440px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 18px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(30, 50, 90, 0.12);
+}
+
+.auth-card.wide {
+    max-width: 700px;
+}
+
+
+/* ============================================================
+   LOGO
+============================================================ */
+
+.auth-brand {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #172033;
+
+    text-decoration: none;
+
+    font-size: 21px;
+
+    font-weight: 800;
+
+    margin-bottom: 30px;
+}
+
+.auth-brand-box {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border-radius: 10px;
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   HEADING
+============================================================ */
+
+.auth-heading {
+    text-align: center;
+
+    margin-bottom: 28px;
+}
+
+.auth-heading h1 {
+    margin: 0 0 8px;
+
+    color: #172033;
+
+    font-size: 28px;
+
+    letter-spacing: -0.5px;
+}
+
+.auth-heading p {
+    margin: 0;
+
+    color: #7b8495;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   FORM
+============================================================ */
+
+.auth-form {
+    width: 100%;
+}
+
+.auth-form label {
+    display: block;
+
+    margin-bottom: 18px;
+
+    color: #374151;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.auth-form input,
+.auth-form select,
+.auth-form textarea {
+    width: 100%;
+
+    margin-top: 7px;
+
+    padding: 13px 14px;
+
+    border: 1px solid #d5ddea;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #172033;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s;
+}
+
+.auth-form input::placeholder,
+.auth-form textarea::placeholder {
+    color: #a1a9b7;
+}
+
+.auth-form input:focus,
+.auth-form select:focus,
+.auth-form textarea:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.10);
+}
+
+
+/* ============================================================
+   LOGIN BUTTON
+============================================================ */
+
+.auth-submit {
+    width: 100%;
+
+    min-height: 46px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.auth-submit:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 18px
+        rgba(37, 99, 235, 0.18);
+}
+
+
+/* ============================================================
+   ALERT
+============================================================ */
+
+.auth-alert {
+    padding: 11px 13px;
+
+    margin-bottom: 18px;
+
+    border-radius: 8px;
+
+    background: #fff1f2;
+
+    border: 1px solid #fecdd3;
+
+    color: #be123c;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   REGISTER / LOGIN LINKS
+============================================================ */
+
+.auth-footer {
+    text-align: center;
+
+    margin-top: 23px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid #edf0f4;
+}
+
+.auth-footer p {
+    margin: 0 0 8px;
+
+    color: #7b8495;
+
+    font-size: 12px;
+}
+
+.auth-footer a,
+.auth-back {
+    color: #2563eb;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+.auth-footer a:hover,
+.auth-back:hover {
+    color: #1d4ed8;
+}
+
+.auth-back {
+    display: block;
+
+    text-align: center;
+
+    margin-top: 18px;
+}
+
+
+/* ============================================================
+   REGISTER FORM GRID
+============================================================ */
+
+.auth-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 0 18px;
+}
+
+.auth-grid .full {
+    grid-column: 1 / -1;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 650px) {
+
+    .auth-page {
+        padding: 20px 14px;
+    }
+
+    .auth-card,
+    .auth-card.wide {
+        padding: 28px 22px;
+
+        border-radius: 14px;
+    }
+
+    .auth-heading h1 {
+        font-size: 24px;
+    }
+
+    .auth-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-grid .full {
+        grid-column: auto;
+    }
+
+}

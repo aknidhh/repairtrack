@@ -1,0 +1,370 @@
+/* ============================================================
+   REPAIRTRACK INVENTORY PAGE
+============================================================ */
+
+.inventory-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+}
+
+
+/* ============================================================
+   MAIN AREA
+============================================================ */
+
+.inventory-main {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 30px 35px 50px;
+}
+
+
+/* ============================================================
+   TOP HEADER
+============================================================ */
+
+.inventory-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+.inventory-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: #172033;
+}
+
+.inventory-header p {
+    margin: 7px 0 0;
+    color: #7b8495;
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   BUTTON
+============================================================ */
+
+.inventory-add-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb !important;
+    color: #ffffff !important;
+
+    padding: 12px 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.inventory-add-btn:hover {
+    background: #1d4ed8 !important;
+    color: #ffffff !important;
+}
+
+
+/* ============================================================
+   CARD
+============================================================ */
+
+.inventory-card {
+    background: #ffffff;
+
+    border: 1px solid #e3e8ef;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    margin-bottom: 22px;
+
+    box-shadow:
+        0 4px 14px rgba(15, 23, 42, 0.03);
+}
+
+.inventory-card-header {
+    padding: 19px 22px;
+
+    border-bottom: 1px solid #edf0f4;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inventory-card-header h2 {
+    margin: 0;
+
+    font-size: 17px;
+
+    color: #172033;
+}
+
+.inventory-card-header p {
+    margin: 5px 0 0;
+
+    font-size: 11px;
+
+    color: #8992a3;
+}
+
+
+/* ============================================================
+   TABLE
+============================================================ */
+
+.inventory-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.inventory-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 700px;
+}
+
+.inventory-table th {
+    background: #f8fafc;
+
+    color: #667085;
+
+    text-align: left;
+
+    padding: 13px 19px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+.inventory-table td {
+    padding: 15px 19px;
+
+    border-top: 1px solid #edf0f4;
+
+    color: #596275;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+}
+
+.inventory-table tr:hover td {
+    background: #fbfcfe;
+}
+
+.inventory-part-name {
+    color: #172033 !important;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+.inventory-status {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+.inventory-status.available {
+    background: #e8f7ed;
+    color: #15803d;
+}
+
+.inventory-status.low {
+    background: #fff4d8;
+    color: #a16207;
+}
+
+.inventory-status.out {
+    background: #ffe9e9;
+    color: #dc2626;
+}
+
+
+/* ============================================================
+   ADD PART FORM
+============================================================ */
+
+.inventory-form {
+    padding: 25px;
+}
+
+.inventory-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.inventory-form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.inventory-form-group label {
+    margin-bottom: 7px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #374151;
+}
+
+.inventory-form-group input {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border:
+        1px solid #d6deea;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-size: 13px;
+
+    background: #ffffff;
+
+    color: #172033;
+}
+
+.inventory-form-group input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.10);
+}
+
+.inventory-form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+.inventory-submit {
+    border: none;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.inventory-submit:hover {
+    background: #1d4ed8;
+}
+
+
+/* ============================================================
+   MESSAGES
+============================================================ */
+
+.inventory-alert {
+    margin:
+        0
+        25px
+        20px;
+
+    padding: 11px 13px;
+
+    background: #fff1f2;
+
+    border:
+        1px solid #fecdd3;
+
+    color: #be123c;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media (max-width: 800px) {
+
+    .inventory-main {
+        margin-left: 76px;
+
+        width:
+            calc(100% - 76px);
+
+        padding: 24px 20px 40px;
+    }
+
+    .inventory-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .inventory-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+    .inventory-add-btn {
+        width: 100%;
+    }
+
+}

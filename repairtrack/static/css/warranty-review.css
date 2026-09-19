@@ -1,0 +1,262 @@
+/* ================================
+   WARRANTY CLAIM REVIEW
+================================ */
+
+.warranty-review-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+}
+
+.warranty-review-main {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-height: 100vh;
+    padding: 30px;
+}
+
+/* Header */
+.warranty-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.warranty-review-header h1 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 700;
+    color: #172033;
+}
+
+.warranty-review-header p {
+    margin: 7px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Main card */
+.warranty-review-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+    border: 1px solid #e5e7eb;
+    max-width: 1000px;
+}
+
+/* Section */
+.warranty-section {
+    margin-bottom: 28px;
+}
+
+.warranty-section:last-child {
+    margin-bottom: 0;
+}
+
+.warranty-section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* Information grid */
+.warranty-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.warranty-info-box {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.warranty-info-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.warranty-info-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    word-break: break-word;
+}
+
+/* Status */
+.warranty-status {
+    display: inline-block;
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Claim description */
+.warranty-description {
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 18px;
+    color: #374151;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+/* Form */
+.warranty-form {
+    margin-top: 10px;
+}
+
+.warranty-form-group {
+    margin-bottom: 20px;
+}
+
+.warranty-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.warranty-form-group textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 13px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+    color: #111827;
+    background: #ffffff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.warranty-form-group textarea:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Buttons */
+.warranty-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.warranty-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.warranty-btn:hover {
+    transform: translateY(-1px);
+}
+
+.warranty-btn-approve {
+    background: #16a34a;
+    color: #ffffff !important;
+}
+
+.warranty-btn-approve:hover {
+    background: #15803d;
+}
+
+.warranty-btn-reject {
+    background: #dc2626;
+    color: #ffffff !important;
+}
+
+.warranty-btn-reject:hover {
+    background: #b91c1c;
+}
+
+.warranty-btn-back {
+    background: #e5e7eb;
+    color: #374151 !important;
+}
+
+.warranty-btn-back:hover {
+    background: #d1d5db;
+}
+
+/* Alert */
+.warranty-alert {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    padding: 12px 15px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+    .warranty-review-main {
+        margin-left: 0;
+        width: 100%;
+        padding: 22px;
+        box-sizing: border-box;
+    }
+
+    .warranty-info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 650px) {
+    .warranty-review-main {
+        padding: 16px;
+    }
+
+    .warranty-review-card {
+        padding: 18px;
+    }
+
+    .warranty-review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .warranty-review-header h1 {
+        font-size: 24px;
+    }
+
+    .warranty-actions {
+        flex-direction: column;
+    }
+
+    .warranty-btn {
+        width: 100%;
+    }
+}

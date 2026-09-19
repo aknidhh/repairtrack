@@ -1,0 +1,545 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+Inventory | RepairTrack
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'css/inventory.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="inventory-page">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        {% if request.user.is_staff %}
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="side-brand"
+            >
+
+                <span class="side-logo">
+                    R
+                </span>
+
+                <div>
+
+                    <strong>
+                        RepairTrack
+                    </strong>
+
+                    <small>
+                        Admin Panel
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'admin_dashboard' %}">
+                    <span>📊</span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="{% url 'admin_users' %}">
+                    <span>👥</span>
+                    <span>Users</span>
+                </a>
+
+                <a href="{% url 'add_technician' %}">
+                    <span>🧑‍🔧</span>
+                    <span>Add Technician</span>
+                </a>
+
+                <a href="{% url 'tickets' %}">
+                    <span>🎫</span>
+                    <span>Service Tickets</span>
+                </a>
+
+                <a href="{% url 'devices' %}">
+                    <span>💻</span>
+                    <span>Devices</span>
+                </a>
+
+                <a href="{% url 'repairs' %}">
+                    <span>🔧</span>
+                    <span>Repairs</span>
+                </a>
+
+                <a
+                    href="{% url 'inventory' %}"
+                    class="active"
+                >
+                    <span>📦</span>
+                    <span>Inventory</span>
+                </a>
+
+                <a href="{% url 'admin_warranty_claims' %}">
+                    <span>🛡️</span>
+                    <span>Warranty Claims</span>
+                </a>
+
+                <a href="{% url 'reports' %}">
+                    <span>📈</span>
+                    <span>Reports</span>
+                </a>
+
+                <a href="{% url 'notifications' %}">
+                    <span>🔔</span>
+                    <span>Notifications</span>
+                </a>
+
+                <a href="{% url 'audit_logs' %}">
+                    <span></span>
+                    <span>Audit Logs</span>
+                </a>
+
+                <a href="{% url 'profile' %}">
+                    <span>👤</span>
+                    <span>Profile</span>
+                </a>
+
+            </nav>
+
+
+        {% else %}
+
+            <a
+                href="{% url 'technician_dashboard' %}"
+                class="side-brand"
+            >
+
+                <span class="side-logo">
+                    R
+                </span>
+
+                <div>
+
+                    <strong>
+                        RepairTrack
+                    </strong>
+
+                    <small>
+                        Technician Portal
+                    </small>
+
+                </div>
+
+            </a>
+
+
+            <nav class="sidebar-nav">
+
+                <a href="{% url 'technician_dashboard' %}">
+                    <span>🏠</span>
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="{% url 'tickets' %}">
+                    <span>🎫</span>
+                    <span> Assigned Tickets</span>
+                </a>
+
+                <a href="{% url 'repairs' %}">
+                    <span>🔧</span>
+                    <span>Repairs</span>
+                </a>
+
+                <a
+                    href="{% url 'inventory' %}"
+                    class="active"
+                >
+                    <span>📦</span>
+                    <span>Inventory</span>
+                </a>
+
+                <a href="{% url 'notifications' %}">
+                    <span>🔔</span>
+                    <span>Notifications</span>
+                </a>
+
+                <a href="{% url 'profile' %}">
+                    <span>👤</span>
+                    <span>Profile</span>
+                </a>
+
+            </nav>
+
+        {% endif %}
+
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="inventory-main">
+
+
+        <!-- HEADER -->
+
+        <header class="inventory-header">
+
+            <div>
+
+                <h1>
+                    Spare Parts Inventory
+                </h1>
+
+                <p>
+                    Manage spare parts and monitor stock levels.
+                </p>
+
+            </div>
+
+
+            <a
+                href="#add-inventory"
+                class="inventory-add-btn"
+            >
+                + Add Spare Part
+            </a>
+
+        </header>
+
+
+        <!-- =================================================
+             INVENTORY LIST
+        ================================================== -->
+
+        <section class="inventory-card">
+
+            <div class="inventory-card-header">
+
+                <div>
+
+                    <h2>
+                        Inventory Items
+                    </h2>
+
+                    <p>
+                        Current spare parts available in the service center.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="inventory-table-wrapper">
+
+                <table class="inventory-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Part Name
+                            </th>
+
+                            <th>
+                                Part Number
+                            </th>
+
+                            <th>
+                                Quantity
+                            </th>
+
+                            <th>
+                                Minimum Stock
+                            </th>
+
+                            <th>
+                                Unit Price
+                            </th>
+
+                            <th>
+                                Stock Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for part in parts %}
+
+                            <tr>
+
+                                <td class="inventory-part-name">
+                                    {{ part.name }}
+                                </td>
+
+                                <td>
+                                    {{ part.part_number }}
+                                </td>
+
+                                <td>
+                                    {{ part.quantity }}
+                                </td>
+
+                                <td>
+                                    {{ part.minimum_quantity }}
+                                </td>
+
+                                <td>
+                                    ₹{{ part.unit_price }}
+                                </td>
+
+                                <td>
+
+                                    {% if part.quantity == 0 %}
+
+                                        <span class="inventory-status out">
+                                            Out of Stock
+                                        </span>
+
+                                    {% elif part.low_stock %}
+
+                                        <span class="inventory-status low">
+                                            Low Stock
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="inventory-status available">
+                                            Available
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+
+                                <td
+                                    colspan="6"
+                                    class="empty-row"
+                                >
+
+                                    No inventory items available.
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             ADD INVENTORY
+        ================================================== -->
+
+        <section
+            class="inventory-card"
+            id="add-inventory"
+        >
+
+            <div class="inventory-card-header">
+
+                <div>
+
+                    <h2>
+                        Add Spare Part
+                    </h2>
+
+                    <p>
+                        Add a new part to inventory.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="inventory-alert">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <form
+                method="POST"
+                class="inventory-form"
+            >
+
+                {% csrf_token %}
+
+
+                <div class="inventory-form-grid">
+
+
+                    <div class="inventory-form-group">
+
+                        <label for="name">
+                            Part Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Example: iPhone Display"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="inventory-form-group">
+
+                        <label for="part_number">
+                            Part Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="part_number"
+                            name="part_number"
+                            placeholder="Example: SP-001"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="inventory-form-group">
+
+                        <label for="quantity">
+                            Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="quantity"
+                            name="quantity"
+                            min="0"
+                            value="0"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="inventory-form-group">
+
+                        <label for="minimum_quantity">
+                            Minimum Stock
+                        </label>
+
+                        <input
+                            type="number"
+                            id="minimum_quantity"
+                            name="minimum_quantity"
+                            min="0"
+                            value="1"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="inventory-form-group">
+
+                        <label for="unit_price">
+                            Unit Price
+                        </label>
+
+                        <input
+                            type="number"
+                            id="unit_price"
+                            name="unit_price"
+                            min="0"
+                            step="0.01"
+                            placeholder="0.00"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="inventory-form-actions">
+
+                    <button
+                        type="reset"
+                        class="btn"
+                    >
+                        Clear
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="inventory-submit"
+                    >
+                        Add Spare Part
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+{% endblock %}

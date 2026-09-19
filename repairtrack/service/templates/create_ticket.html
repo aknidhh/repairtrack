@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Service Ticket | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="simple">
+
+    <section class="card formcard">
+
+        <div class="cardhead">
+
+            <div>
+
+                <h1>
+                    Create Service Ticket
+                </h1>
+
+                <p>
+                    Submit a new repair request.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        {% if not devices %}
+
+            <div class="alert">
+
+                You need to register a device first.
+
+            </div>
+
+
+            <a
+                href="{% url 'register_device' %}"
+                class="btn"
+            >
+                + Register Device
+            </a>
+
+        {% else %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <label>
+                    Device
+
+                    <select
+                        name="device"
+                        required
+                    >
+
+                        <option value="">
+                            -- Select Device --
+                        </option>
+
+                        {% for device in devices %}
+
+                            <option value="{{ device.id }}">
+                                {{ device }}
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Problem Title
+
+                    <input
+                        type="text"
+                        name="title"
+                        placeholder="Example: Screen not working"
+                        required
+                    >
+
+                </label>
+
+
+                <label>
+                    Problem Description
+
+                    <textarea
+                        name="description"
+                        rows="6"
+                        placeholder="Describe the problem..."
+                        required
+                    ></textarea>
+
+                </label>
+
+
+                <label>
+                    Priority
+
+                    <select name="priority">
+
+                        <option value="normal">
+                            Normal
+                        </option>
+
+                        <option value="medium">
+                            Medium
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <button
+                    type="submit"
+                    class="btn"
+                >
+                    Create Service Ticket
+                </button>
+
+            </form>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

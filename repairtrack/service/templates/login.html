@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+Login | RepairTrack
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'css/auth.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="auth-page">
+
+
+    <div class="auth-card">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="{% url 'home' %}"
+            class="auth-brand"
+        >
+
+            <span class="auth-brand-box">
+                R
+            </span>
+
+            RepairTrack
+
+        </a>
+
+
+
+        <!-- HEADING -->
+
+        <div class="auth-heading">
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p>
+                Sign in to access your RepairTrack account.
+            </p>
+
+        </div>
+
+
+
+        <!-- ERRORS -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="auth-alert">
+
+                    {{ message }}
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+
+        <!-- LOGIN FORM -->
+
+        <form
+            method="POST"
+            class="auth-form"
+        >
+
+            {% csrf_token %}
+
+
+            <label>
+
+                Username
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter your username"
+                    autocomplete="username"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+
+                Password
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="auth-submit"
+            >
+                Login
+            </button>
+
+        </form>
+
+
+
+        <!-- REGISTER -->
+
+        <div class="auth-footer">
+
+            <p>
+                Don't have a customer account?
+            </p>
+
+            <a
+                href="{% url 'customer_register' %}"
+            >
+                Create Customer Account
+            </a>
+
+        </div>
+
+
+
+        <!-- BACK -->
+
+        <a
+            href="{% url 'home' %}"
+            class="auth-back"
+        >
+            ← Back to Home
+        </a>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

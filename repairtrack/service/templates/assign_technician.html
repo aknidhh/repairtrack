@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}
+Assign Technician | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="simple">
+
+    <section class="card assign-card">
+
+        <div class="cardhead">
+
+            <div>
+
+                <h1>
+                    Assign Technician
+                </h1>
+
+                <p>
+                    Assign a technician to this repair.
+                </p>
+
+            </div>
+
+            <a
+                href="{% url 'tickets' %}"
+                class="back-link"
+            >
+                ← Back
+            </a>
+
+        </div>
+
+
+        <div class="ticket-info">
+
+            <div>
+                <small>Ticket</small>
+
+                <strong>
+                    #RT-{{ ticket.id|stringformat:"04d" }}
+                </strong>
+            </div>
+
+
+            <div>
+                <small>Customer</small>
+
+                <strong>
+                    {{ ticket.customer.username }}
+                </strong>
+            </div>
+
+
+            <div>
+                <small>Device</small>
+
+                <strong>
+                    {{ ticket.device }}
+                </strong>
+            </div>
+
+
+            <div>
+                <small>Status</small>
+
+                <strong>
+                    {{ ticket.get_status_display }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        {% if ticket.technician %}
+
+            <div class="current-assignment">
+
+                <div>
+
+                    <small>
+                        Currently Assigned
+                    </small>
+
+                    <strong>
+                        {{ ticket.technician.get_full_name|default:ticket.technician.username }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <label>
+                Select Technician
+
+                <select
+                    name="technician"
+                    required
+                >
+
+                    <option value="">
+                        -- Select Technician --
+                    </option>
+
+
+                    {% for technician in technicians %}
+
+                        <option
+                            value="{{ technician.id }}"
+                            {% if ticket.technician_id == technician.id %}
+                                selected
+                            {% endif %}
+                        >
+
+                            {{ technician.get_full_name|default:technician.username }}
+
+                        </option>
+
+                    {% empty %}
+
+                        <option value="">
+                            No technicians available
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </label>
+
+
+            <div class="assignment-actions">
+
+                <a
+                    href="{% url 'tickets' %}"
+                    class="btn"
+                >
+                    Cancel
+                </a>
+
+
+                <button
+                    type="submit"
+                    class="btn"
+                >
+                    Assign Technician
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+</div>
+
+{% endblock %}

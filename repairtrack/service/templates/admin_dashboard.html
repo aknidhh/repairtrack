@@ -1,0 +1,514 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Dashboard | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <a
+            href="{% url 'admin_dashboard' %}"
+            class="side-brand"
+        >
+
+            <span class="side-logo">
+                R
+            </span>
+
+            <div>
+
+                <strong>
+                    RepairTrack
+                </strong>
+
+                <small>
+                    Admin Panel
+                </small>
+
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="{% url 'admin_dashboard' %}"
+                class="{% if request.resolver_match.url_name == 'admin_dashboard' %}active{% endif %}"
+            >
+                <span>📊</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="{% url 'admin_users' %}"
+                class="{% if request.resolver_match.url_name == 'admin_users' %}active{% endif %}"
+            >
+                <span>👥</span>
+                Users
+            </a>
+
+
+            <a
+                href="{% url 'add_technician' %}"
+                class="{% if request.resolver_match.url_name == 'add_technician' %}active{% endif %}"
+            >
+                <span>🧑‍🔧</span>
+                Add Technician
+            </a>
+
+
+            <a
+                href="{% url 'tickets' %}"
+                class="{% if request.resolver_match.url_name == 'tickets' %}active{% endif %}"
+            >
+                <span>🎫</span>
+                Service Tickets
+            </a>
+
+
+            <a
+                href="{% url 'devices' %}"
+                class="{% if request.resolver_match.url_name == 'devices' or request.resolver_match.url_name == 'register_device' %}active{% endif %}"
+            >
+                <span>💻</span>
+                Devices
+            </a>
+
+
+            <a
+                href="{% url 'repairs' %}"
+                class="{% if request.resolver_match.url_name == 'repairs' %}active{% endif %}"
+            >
+                <span>🔧</span>
+                Repairs
+            </a>
+
+
+            <a
+                href="{% url 'inventory' %}"
+                class="{% if request.resolver_match.url_name == 'inventory' %}active{% endif %}"
+            >
+                <span>📦</span>
+                Inventory
+            </a>
+
+
+            <a
+                href="{% url 'admin_warranty_claims' %}"
+                class="{% if request.resolver_match.url_name == 'admin_warranty_claims' or request.resolver_match.url_name == 'review_warranty_claim' %}active{% endif %}"
+            >
+                <span>🛡️</span>
+                Warranty Claims
+            </a>
+
+
+            <a
+                href="{% url 'reports' %}"
+                class="{% if request.resolver_match.url_name == 'reports' %}active{% endif %}"
+            >
+                <span>📈</span>
+                Reports
+            </a>
+
+
+            <a
+                href="{% url 'notifications' %}"
+                class="{% if request.resolver_match.url_name == 'notifications' %}active{% endif %}"
+            >
+                <span>🔔</span>
+                Notifications
+            </a>
+
+
+            <a
+                href="{% url 'audit_logs' %}"
+                class="{% if request.resolver_match.url_name == 'audit_logs' %}active{% endif %}"
+            >
+                <span></span>
+                Audit Logs
+            </a>
+
+
+            <a
+                href="{% url 'profile' %}"
+                class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}"
+            >
+                <span>👤</span>
+                Profile
+            </a>
+
+        </nav>
+
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
+                <p>
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <!-- STATISTICS -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    👥
+                </div>
+
+                <div>
+
+                    <span>
+                        Customers
+                    </span>
+
+                    <strong>
+                        {{ customer_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🧑‍🔧
+                </div>
+
+                <div>
+
+                    <span>
+                        Technicians
+                    </span>
+
+                    <strong>
+                        {{ technician_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎫
+                </div>
+
+                <div>
+
+                    <span>
+                        Total Tickets
+                    </span>
+
+                    <strong>
+                        {{ ticket_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⚠
+                </div>
+
+                <div>
+
+                    <span>
+                        Low Stock
+                    </span>
+
+                    <strong>
+                        {{ low_stock_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADD TECHNICIAN -->
+
+        <section class="customer-callout">
+
+            <div>
+
+                <span class="callout-label">
+                    TEAM MANAGEMENT
+                </span>
+
+                <h2>
+                    Add a technician
+                </h2>
+
+                <p>
+                    Create a technician account for the portal.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'add_technician' %}"
+                class="btn -btn"
+            >
+                + Add Technician
+            </a>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section class="content-card">
+
+            <div class="content-card-header">
+
+                <div>
+
+                    <h2>
+                        
+                    </h2>
+                        Manage your service center
+                    <p>
+                        
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions-grid">
+
+
+                <a
+                    href="{% url 'admin_users' %}"
+                    class="quick-action-card"
+                >
+                    👥
+                    <strong>
+                        Users
+                    </strong>
+                    <small>
+                        Manage accounts
+                    </small>
+                </a>
+
+
+                <a
+                    href="{% url 'add_technician' %}"
+                    class="quick-action-card"
+                >
+                    🧑‍🔧
+                    <strong>
+                        Add Technician
+                    </strong>
+                    <small>
+                        Create technician account
+                    </small>
+                </a>
+
+
+                <a
+                    href="{% url 'inventory' %}"
+                    class="quick-action-card"
+                >
+                    📦
+                    <strong>
+                        Inventory
+                    </strong>
+                    <small>
+                        Manage spare parts
+                    </small>
+                </a>
+
+
+                <a
+                    href="{% url 'admin_warranty_claims' %}"
+                    class="quick-action-card"
+                >
+                    🛡️
+                    <strong>
+                        Warranty Claims
+                    </strong>
+                    <small>
+                        Review customer claims
+                    </small>
+                </a>
+
+
+                <a
+                    href="{% url 'reports' %}"
+                    class="quick-action-card"
+                >
+                    📈
+                    <strong>
+                        Reports
+                    </strong>
+                    <small>
+                        View service statistics
+                    </small>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT TICKETS -->
+
+        <section class="content-card">
+
+            <div class="content-card-header">
+
+                <h2>
+                    Recent Tickets
+                </h2>
+
+                <a href="{% url 'tickets' %}">
+                    View All
+                </a>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Ticket
+                            </th>
+
+                            <th>
+                                Customer
+                            </th>
+
+                            <th>
+                                Device
+                            </th>
+
+                            <th>
+                                Technician
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                    {% for ticket in recent_tickets %}
+
+                        <tr>
+
+                            <td>
+                                #RT-{{ ticket.id|stringformat:"04d" }}
+                            </td>
+
+                            <td>
+                                {{ ticket.customer.username }}
+                            </td>
+
+                            <td>
+                                {{ ticket.device }}
+                            </td>
+
+                            <td>
+
+                                {% if ticket.technician %}
+                                    {{ ticket.technician.username }}
+                                {% else %}
+                                    Unassigned
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ ticket.get_status_display }}
+                            </td>
+
+                        </tr>
+
+                    {% empty %}
+
+                        <tr>
+                            <td
+                                colspan="5"
+                                class="empty-row"
+                            >
+                                No tickets.
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,414 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+RepairTrack | Electronics Service & Repair
+{% endblock %}
+
+
+{% block extra_css %}
+
+<link
+    rel="stylesheet"
+    href="{% static 'css/home.css' %}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="home-page">
+
+
+    <!-- =====================================================
+         NAVBAR
+    ====================================================== -->
+
+    <header class="home-navbar">
+
+
+        <a
+            href="{% url 'home' %}"
+            class="home-logo"
+        >
+
+            <span class="home-logo-box">
+                R
+            </span>
+
+            RepairTrack
+
+        </a>
+
+
+        <nav class="home-nav">
+
+            <a href="#services">
+                Services
+            </a>
+
+            <a href="#workflow">
+                How It Works
+            </a>
+
+
+            <a
+                href="{% url 'login' %}"
+                class="home-btn home-btn-outline"
+            >
+                Login
+            </a>
+
+
+            <a
+                href="{% url 'customer_register' %}"
+                class="home-btn"
+            >
+                Register
+            </a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="home-hero">
+
+
+        <div class="home-hero-content">
+
+
+            <span class="home-eyebrow">
+                ELECTRONICS SERVICE & REPAIR
+            </span>
+
+
+            <h1>
+
+                Your device.
+                <br>
+
+                <span>
+                    Our expertise.
+                </span>
+
+            </h1>
+
+
+            <p>
+
+                RepairTrack makes it simple to submit
+                service requests, track repairs, manage
+                warranty claims and stay updated about
+                your device.
+
+            </p>
+
+
+            <div class="home-hero-actions">
+
+
+                <a
+                    href="{% url 'customer_register' %}"
+                    class="home-btn"
+                >
+                    Get Started
+                </a>
+
+
+                <a
+                    href="{% url 'login' %}"
+                    class="home-btn home-btn-outline"
+                >
+                    Sign In
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HERO VISUAL -->
+
+<div class="home-hero-visual">
+    <div class="home-photo-card">
+        <img
+            src="{% static 'images/repair-service.jpg' %}"
+            alt="TV, washing machine, air conditioner and refrigerator repair service"
+            class="home-repair-photo"
+        >
+    </div>
+</div>
+        <div class="home-services">
+
+
+            <article class="home-service-card">
+
+                <div class="home-service-icon">
+                    🎫
+                </div>
+
+                <h3>
+                    Service Tickets
+                </h3>
+
+                <p>
+                    Submit and track repair requests
+                    for your devices.
+                </p>
+
+            </article>
+
+
+            <article class="home-service-card">
+
+                <div class="home-service-icon">
+                    🔧
+                </div>
+
+                <h3>
+                    Repair Tracking
+                </h3>
+
+                <p>
+                    Follow diagnosis, repair and
+                    completion status.
+                </p>
+
+            </article>
+
+
+            <article class="home-service-card">
+
+                <div class="home-service-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Warranty Claims
+                </h3>
+
+                <p>
+                    Submit warranty claims and
+                    track their status.
+                </p>
+
+            </article>
+
+
+            <article class="home-service-card">
+
+                <div class="home-service-icon">
+                    🔔
+                </div>
+
+                <h3>
+                    Notifications
+                </h3>
+
+                <p>
+                    Receive updates about your
+                    repair and warranty requests.
+                </p>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         WORKFLOW
+    ====================================================== -->
+
+    <section
+        id="workflow"
+        class="home-section home-workflow"
+    >
+
+
+        <div class="home-section-heading">
+
+            <span class="home-eyebrow">
+                HOW IT WORKS
+            </span>
+
+
+            <h2>
+                Simple Repair Workflow
+            </h2>
+
+        </div>
+
+
+
+        <div class="home-steps">
+
+
+            <div class="home-step">
+
+                <span class="home-step-number">
+                    01
+                </span>
+
+                <h3>
+                    Register Device
+                </h3>
+
+                <p>
+                    Add your phone, laptop,
+                    tablet or other device.
+                </p>
+
+            </div>
+
+
+            <div class="home-step">
+
+                <span class="home-step-number">
+                    02
+                </span>
+
+                <h3>
+                    Submit Request
+                </h3>
+
+                <p>
+                    Create a service ticket
+                    describing the problem.
+                </p>
+
+            </div>
+
+
+            <div class="home-step">
+
+                <span class="home-step-number">
+                    03
+                </span>
+
+                <h3>
+                    Technician Repairs
+                </h3>
+
+                <p>
+                    A technician diagnoses and
+                    repairs your device.
+                </p>
+
+            </div>
+
+
+            <div class="home-step">
+
+                <span class="home-step-number">
+                    04
+                </span>
+
+                <h3>
+                    Complete
+                </h3>
+
+                <p>
+                    Track the final status and
+                    receive your device.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         CALL TO ACTION
+    ====================================================== -->
+
+    <section class="home-cta">
+
+
+        <div class="home-cta-content">
+
+
+            <div>
+
+                <h2>
+                    Need a device repaired?
+                </h2>
+
+                <p>
+                    Create your customer account
+                    and submit your first service request.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'customer_register' %}"
+                class="home-btn"
+            >
+                Start a Repair
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="home-footer">
+
+
+        <div class="home-footer-content">
+
+
+            <p>
+                © 2026 RepairTrack
+            </p>
+
+
+            <div class="home-footer-links">
+
+                <a href="#services">
+                    Services
+                </a>
+
+                <a href="#workflow">
+                    How It Works
+                </a>
+
+                <a href="{% url 'login' %}">
+                    Login
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+
+</div>
+
+{% endblock %}

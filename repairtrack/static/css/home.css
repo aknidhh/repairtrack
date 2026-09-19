@@ -1,0 +1,787 @@
+/* ============================================================
+   REPAIRTRACK HOME PAGE
+============================================================ */
+
+.home-page {
+    margin: 0;
+    background: #f7f9fc;
+    color: #172033;
+}
+
+
+/* ============================================================
+   HOME NAVBAR
+============================================================ */
+
+.home-navbar {
+    width: 100%;
+    height: 76px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 7%;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 1000;
+}
+
+.home-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #172033;
+
+    text-decoration: none;
+
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.home-logo-box {
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #2563eb;
+
+    color: white;
+
+    border-radius: 9px;
+
+    font-weight: 800;
+}
+
+
+.home-nav {
+    display: flex;
+    align-items: center;
+
+    gap: 28px;
+}
+
+.home-nav a {
+    color: #667085;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+.home-nav a:hover {
+    color: #2563eb;
+}
+
+
+/* ============================================================
+   HOME BUTTONS
+============================================================ */
+
+.home-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: #ffffff !important;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+.home-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.home-btn-outline {
+    background: #ffffff;
+
+    color: #2563eb !important;
+
+    border: 1px solid #cfd8e7;
+}
+
+.home-btn-outline:hover {
+    background: #f3f7ff;
+
+    border-color: #2563eb;
+}
+
+
+/* ============================================================
+   HERO
+============================================================ */
+
+.home-hero {
+    min-height: 610px;
+
+    padding: 80px 7%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f8fbff 0%,
+            #eef4ff 100%
+        );
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 60px;
+
+    align-items: center;
+}
+
+
+.home-hero-content {
+    max-width: 590px;
+}
+
+
+.home-eyebrow {
+    display: inline-block;
+
+    color: #2563eb;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    margin-bottom: 15px;
+}
+
+
+.home-hero h1 {
+    margin: 0 0 20px;
+
+    font-size: 58px;
+
+    line-height: 1.05;
+
+    letter-spacing: -1.8px;
+}
+
+.home-hero h1 span {
+    color: #2563eb;
+}
+
+
+.home-hero p {
+    max-width: 540px;
+
+    color: #667085;
+
+    font-size: 17px;
+
+    line-height: 1.7;
+
+    margin-bottom: 30px;
+}
+
+
+.home-hero-actions {
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+/* ============================================================
+   HERO VISUAL
+============================================================ */
+
+.home-hero-visual {
+    position: relative;
+
+    min-height: 390px;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #dce9ff,
+            #f8fbff
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border: 1px solid #d8e3f5;
+
+    box-shadow:
+        0 25px 60px
+        rgba(37, 99, 235, 0.10);
+}
+
+
+.home-device-card {
+    width: 72%;
+
+    background: #ffffff;
+
+    padding: 22px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    box-shadow:
+        0 18px 40px
+        rgba(20, 40, 80, 0.12);
+}
+
+
+.home-device-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #edf3ff;
+
+    border-radius: 12px;
+
+    font-size: 25px;
+}
+
+
+.home-device-info {
+    flex: 1;
+}
+
+.home-device-info strong {
+    display: block;
+
+    font-size: 13px;
+}
+
+.home-device-info small {
+    display: block;
+
+    color: #8992a3;
+
+    font-size: 10px;
+
+    margin-top: 4px;
+}
+
+
+.home-live {
+    padding: 6px 9px;
+
+    border-radius: 20px;
+
+    background: #e8f7ed;
+
+    color: #15803d;
+
+    font-size: 9px;
+
+    font-weight: 800;
+}
+
+
+.home-floating-card {
+    position: absolute;
+
+    right: 8%;
+
+    bottom: 30px;
+
+    background: #ffffff;
+
+    padding: 15px 18px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(20, 40, 80, 0.12);
+}
+
+
+.home-floating-card strong {
+    display: block;
+
+    color: #2563eb;
+
+    font-size: 18px;
+}
+
+.home-floating-card small {
+    display: block;
+
+    color: #7b8495;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+
+/* ============================================================
+   SERVICES
+============================================================ */
+
+.home-section {
+    padding: 85px 7%;
+}
+
+.home-section-heading {
+    text-align: center;
+
+    max-width: 680px;
+
+    margin: 0 auto 50px;
+}
+
+.home-section-heading .home-eyebrow {
+    margin-bottom: 8px;
+}
+
+.home-section-heading h2 {
+    margin: 0 0 12px;
+
+    font-size: 36px;
+
+    letter-spacing: -0.8px;
+}
+
+.home-section-heading p {
+    margin: 0;
+
+    color: #7b8495;
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+.home-services {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+
+.home-service-card {
+    background: #ffffff;
+
+    padding: 28px;
+
+    border:
+        1px solid #e3e8f0;
+
+    border-radius: 14px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.home-service-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(20, 40, 80, 0.08);
+}
+
+
+.home-service-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #edf3ff;
+
+    border-radius: 12px;
+
+    font-size: 24px;
+
+    margin-bottom: 18px;
+}
+
+
+.home-service-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 17px;
+}
+
+.home-service-card p {
+    margin: 0;
+
+    color: #7b8495;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   HOW IT WORKS
+============================================================ */
+
+.home-workflow {
+    background: #eef3fa;
+}
+
+
+.home-steps {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    max-width: 1050px;
+
+    margin: auto;
+}
+
+
+.home-step {
+    background: #ffffff;
+
+    padding: 25px;
+
+    border-radius: 13px;
+
+    border: 1px solid #e1e7ef;
+}
+
+
+.home-step-number {
+    color: #2563eb;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+
+.home-step h3 {
+    margin: 10px 0 7px;
+
+    font-size: 16px;
+}
+
+
+.home-step p {
+    margin: 0;
+
+    color: #7b8495;
+
+    line-height: 1.5;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   CTA
+============================================================ */
+
+.home-cta {
+    padding: 70px 7%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: #ffffff;
+}
+
+
+.home-cta-content {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+.home-cta h2 {
+    margin: 0 0 7px;
+
+    font-size: 30px;
+}
+
+.home-cta p {
+    margin: 0;
+
+    opacity: 0.85;
+
+    font-size: 13px;
+}
+
+
+.home-cta .home-btn {
+    background: #ffffff;
+
+    color: #2563eb !important;
+
+    white-space: nowrap;
+}
+
+
+/* ============================================================
+   FOOTER
+============================================================ */
+
+.home-footer {
+    background: #111827;
+
+    color: #ffffff;
+
+    padding: 35px 7%;
+}
+
+
+.home-footer-content {
+    max-width: 1100px;
+
+    margin: auto;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.home-footer p {
+    margin: 0;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+}
+
+
+.home-footer-links {
+    display: flex;
+
+    gap: 22px;
+}
+
+.home-footer-links a {
+    color: #cbd5e1;
+
+    font-size: 11px;
+
+    text-decoration: none;
+}
+
+.home-footer-links a:hover {
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (max-width: 950px) {
+
+    .home-nav a:not(.home-btn) {
+        display: none;
+    }
+
+    .home-hero {
+        grid-template-columns: 1fr;
+
+        padding:
+            60px 6%;
+    }
+
+    .home-hero-content {
+        text-align: center;
+
+        margin: auto;
+    }
+
+    .home-hero p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .home-hero-actions {
+        justify-content: center;
+    }
+
+    .home-services {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .home-steps {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .home-navbar {
+        padding: 0 5%;
+    }
+
+    .home-nav {
+        gap: 7px;
+    }
+
+    .home-hero {
+        padding:
+            50px 5%;
+    }
+
+    .home-hero h1 {
+        font-size: 42px;
+    }
+
+    .home-hero p {
+        font-size: 15px;
+    }
+
+    .home-hero-visual {
+        min-height: 300px;
+    }
+
+    .home-device-card {
+        width: 88%;
+    }
+
+    .home-services {
+        grid-template-columns: 1fr;
+    }
+
+    .home-steps {
+        grid-template-columns: 1fr;
+    }
+
+    .home-cta-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .home-footer-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+}
+.home-hero-visual {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-photo-card {
+    width: 100%;
+    max-width: 700px;
+    height: 470px;
+    border-radius: 28px;
+    overflow: hidden;
+    background: #eaf2ff;
+    border: 1px solid #d5e2f5;
+    box-shadow: 0 20px 50px rgba(37, 99, 235, 0.12);
+}
+
+.home-repair-photo {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+@media (max-width: 900px) {
+    .home-photo-card {
+        height: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .home-photo-card {
+        height: 300px;
+        border-radius: 20px;
+    }
+}

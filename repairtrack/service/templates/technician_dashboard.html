@@ -1,0 +1,399 @@
+{% extends "base.html" %}
+
+{% block title %}
+Technician Dashboard | RepairTrack
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-layout">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <a
+            href="{% url 'technician_dashboard' %}"
+            class="side-brand"
+        >
+
+            <span class="side-logo">
+                R
+            </span>
+
+            <div>
+
+                <strong>
+                    RepairTrack
+                </strong>
+
+                <small>
+                    Technician Portal
+                </small>
+
+            </div>
+
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="{% url 'technician_dashboard' %}"
+                class="{% if request.resolver_match.url_name == 'technician_dashboard' %}active{% endif %}"
+            >
+                <span>🏠</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="{% url 'tickets' %}"
+                class="{% if request.resolver_match.url_name == 'tickets' %}active{% endif %}"
+            >
+                <span>🎫</span>
+                Assigned Tickets
+            </a>
+
+
+            <a
+                href="{% url 'repairs' %}"
+                class="{% if request.resolver_match.url_name == 'repairs' %}active{% endif %}"
+            >
+                <span>🔧</span>
+                Repairs
+            </a>
+
+
+            <a
+                href="{% url 'inventory' %}"
+                class="{% if request.resolver_match.url_name == 'inventory' %}active{% endif %}"
+            >
+                <span>📦</span>
+                Inventory
+            </a>
+
+
+            <a
+                href="{% url 'notifications' %}"
+                class="{% if request.resolver_match.url_name == 'notifications' %}active{% endif %}"
+            >
+                <span>🔔</span>
+                Notifications
+            </a>
+
+
+            <a
+                href="{% url 'profile' %}"
+                class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}"
+            >
+                <span>👤</span>
+                My Profile
+            </a>
+
+        </nav>
+
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout"
+        >
+            ↪ Logout
+        </a>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="dashboard-main">
+
+
+        <header class="dashboard-topbar">
+
+            <div>
+
+                <h1>
+                    Technician Dashboard
+                </h1>
+
+                <p>
+                    Welcome,
+                    {{ request.user.get_full_name|default:request.user.username }}
+                </p>
+
+            </div>
+
+
+            <div class="user-chip">
+
+                <div class="avatar">
+                    {{ request.user.username|first|upper }}
+                </div>
+
+                <div>
+
+                    <b>
+                        {{ request.user.get_full_name|default:request.user.username }}
+                    </b>
+
+                    <small>
+                        TECHNICIAN
+                    </small>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- STATISTICS -->
+
+        <section class="stats-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🎫
+                </div>
+
+                <div>
+
+                    <span>
+                        Assigned Tickets
+                    </span>
+
+                    <strong>
+                        {{ assigned_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    🔧
+                </div>
+
+                <div>
+
+                    <span>
+                        Active Repairs
+                    </span>
+
+                    <strong>
+                        {{ active_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+                <div>
+
+                    <span>
+                        Pending Diagnosis
+                    </span>
+
+                    <strong>
+                        {{ diagnosis_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span>
+                        Completed
+                    </span>
+
+                    <strong>
+                        {{ completed_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ASSIGNED REPAIRS -->
+
+        <section class="content-card">
+
+            <div class="content-card-header">
+
+                <div>
+
+                    <h2>
+                        My Assigned Repairs
+                    </h2>
+
+                    <p>
+                        Repairs that require your attention
+                    </p>
+
+                </div>
+
+                <a href="{% url 'tickets' %}">
+                    View All
+                </a>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Ticket</th>
+                            <th>Customer</th>
+                            <th>Device</th>
+                            <th>Priority</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for ticket in assigned_tickets %}
+
+                        <tr>
+
+                            <td>
+                                #RT-{{ ticket.id|stringformat:"04d" }}
+                            </td>
+
+                            <td>
+                                {{ ticket.customer.username }}
+                            </td>
+
+                            <td>
+                                {{ ticket.device }}
+                            </td>
+
+                            <td>
+                                {{ ticket.get_priority_display }}
+                            </td>
+
+                            <td>
+                                {{ ticket.get_status_display }}
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+                            <td
+                                colspan="5"
+                                class="empty-row"
+                            >
+                                No assigned tickets.
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+
+        <section class="content-card">
+
+            <div class="content-card-header">
+
+                <h2>
+                    Manage your services
+                </h2>
+
+            </div>
+
+
+            <div class="quick-actions-grid">
+
+                <a
+                    href="{% url 'tickets' %}"
+                    class="quick-action-card"
+                >
+                    🎫
+                    <strong>
+                        Assigned Tickets
+                    </strong>
+                    <small>
+                        View repair requests
+                    </small>
+                </a>
+
+
+                <a
+                    href="{% url 'repairs' %}"
+                    class="quick-action-card"
+                >
+                    🔧
+                    <strong>
+                        My Repairs
+                    </strong>
+                    <small>
+                        Manage repair work
+                    </small>
+                </a>
+
+
+                <a
+                    href="{% url 'inventory' %}"
+                    class="quick-action-card"
+                >
+                    📦
+                    <strong>
+                        Inventory
+                    </strong>
+                    <small>
+                        Check spare parts
+                    </small>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+{% endblock %}
